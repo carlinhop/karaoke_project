@@ -12,5 +12,6 @@ class TestGuest < MiniTest::Test
 
   def test_guest_has_money
     assert_equal(true, @guest1.money != nil)
+  en
   end
 end

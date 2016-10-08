@@ -9,10 +9,11 @@ class TestRoom < MiniTest::Test
   def setup
     @karaoke = Karaoke.new("Party Machine")
     @room1 = Room.new("Jazzy",2, 5)
-    @guest1 = Guest.new("jose")
-    @guest2 = Guest.new("rita")
-    @guest3 = Guest.new("aladin")
-    @guest4 = Guest.new("Pablo Escobar")
+    @guest1 = Guest.new("jose",100)
+    @guest2 = Guest.new("rita",100)
+    @guest3 = Guest.new("aladin",100)
+    @guest4 = Guest.new("Pablo Escobar",1000)
+    @guest5 = Guest.new("Ricky", 2)
     @room1.add_guest(@guest1)
     @song1 =  Song.new("No woman no cry", "Bob Marley")
     @room1.add_song(@song1)
@@ -65,12 +66,21 @@ class TestRoom < MiniTest::Test
     assert_equal(true, @room1.fee != nil)
   end
 
-  # def test_room_can_collect_fee
-  #   old_karaoke_money = @karaoke.money
-  #   @room1.add_guest(@guest4)
-  #   assert_equal(true, old_karaoke_money < @karaoke.money )
-  # end
+  def test_room_has_money
+    assert_equal(true, @room1.money != nil)
+  end 
 
+  def test_room_can_collect_fee
+    old_karaoke_money = @room1.money
+    @room1.add_guest(@guest4)
+    assert_equal(true, old_karaoke_money < @room1.money)
+  end
+
+  def test_guest_not_having_enough_money_to_enter
+    old_number_of_guests = @room1.guests.length  
+    @room1.add_guest(@guest5)
+    assert_equal(old_number_of_guests,@room1.guests.length)
+  end
 
 
 

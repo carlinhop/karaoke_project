@@ -1,22 +1,29 @@
+
+
 class Room
   attr_reader :name, :guests_limit, :fee
-  attr_accessor :guests, :songs
+  attr_accessor :guests, :songs, :money
   def initialize(name, guests_limit, fee)
     @name = name
     @guests = []
     @songs = []
     @guests_limit = guests_limit
     @fee = fee
+    @money = 0
   end
 
   def add_guest(guest)
     if @guests.length != @guests_limit && !@guests.include?(guest)
-      
-      @guests << guest
+      if guest.money > @fee
+        guest.money -= @fee
+        @money += @fee
+        @guests << guest
+      else
+        return "Sorry, you really need to pay the fee"
+      end
     else
       return "Sorry, room is full"
     end
-
   end
 
   def remove_guest(guest)

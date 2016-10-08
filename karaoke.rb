@@ -4,8 +4,8 @@ class Karaoke
   def initialize(name)
     @name = name
     @rooms = []
-    
-    @money = 0 
+    @money = 0
+
   end
 
   def add_room(room)
@@ -20,7 +20,9 @@ class Karaoke
     return @rooms
   end
 
-
+  def report_money
+    @money = @rooms.reduce(0) {|sum, room| sum + room.money} 
+  end
 
 
 end
